@@ -1,3 +1,13 @@
+/**
+ * Este programa tiene las siguientes características:
+
+Se define una estructura Sitio con los campos nombre, ubicacion y sitio_web.
+Se define un arreglo sitios de estructuras Sitio para almacenar los sitios de eventos.
+Se define una variable num_sitios para llevar la cuenta de la cantidad de sitios almacenados en el arreglo.
+La función agregar_sitio recibe como parámetros el nombre, la ubicacion y el sitio_web de un sitio de eventos y lo agrega al
+*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,6 +17,8 @@
 #define MAX_UBICACION 50
 #define MAX_SITIO_WEB 50
 
+//Estructuras de datos a utilizar
+
 struct Sitio {
     char nombre[MAX_NOMBRE];
     char ubicacion[MAX_UBICACION];
@@ -15,6 +27,18 @@ struct Sitio {
 
 struct Sitio sitios[MAX_SITIOS];
 int num_sitios = 0;
+
+
+/**
+ * Agregar_sitio
+ * @param nombre
+ * @param ubicacion
+ * @param sitio_web
+ *Funcionalidad que agrega un sitio al arreglo de sitios.
+ *Se recibe como parámetros el nombre, la ubicacion y el sitio_web de un sitio de eventos.
+ *Se crea un nuevo sitio y se agrega al arreglo de sitios.
+ * @return
+*/
 
 void agregar_sitio(char nombre[], char ubicacion[], char sitio_web[]) {
     if (num_sitios >= MAX_SITIOS) {
@@ -73,6 +97,13 @@ void agregar_sitios_desde_archivo(char ruta[]) {
     fclose(archivo);
 }
 
+/**
+ * imprimir_sitios()
+ * @param ruta
+ * imprime los sitios que se encuentran en el archivo
+ * @return
+ * 
+*/
 void imprimir_sitios() {
     printf("Sitios de eventos:\n");
     for (int i = 0; i < num_sitios; i++) {
@@ -80,6 +111,7 @@ void imprimir_sitios() {
     }
 }
 
+//Prueba para visualizar el funcionamiento correcto de la función
 int main() {
     agregar_sitios_desde_archivo("sitios.txt");
 
