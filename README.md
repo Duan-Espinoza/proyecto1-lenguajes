@@ -20,7 +20,7 @@
     Duan Espinoza Olivares
   </p>
   <p align="center">
-    JORDANO ANDRES ESCALANTE LOPEZ 
+    Jordano Escalante López
   </p>
   
   <br />
