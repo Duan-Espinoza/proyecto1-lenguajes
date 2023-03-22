@@ -25,13 +25,7 @@
 
 //Estructuras de datos a utilizar
 
-struct Sitio {
-    char nombre[MAX_NOMBRE];
-    char ubicacion[MAX_UBICACION];
-    char sitio_web[MAX_SITIO_WEB];
-    int cantidad_sectores;
-    struct Sector sectores[MAX_SECTORES];
-};
+
 
 struct Asiento {
     char nombre[MAX_ASIENTOS];
@@ -44,13 +38,27 @@ struct Sector {
     struct Asiento asientos[MAX_ASIENTOS];
 };
 
+struct Sitio {
+    char nombre[MAX_NOMBRE];
+    char ubicacion[MAX_UBICACION];
+    char sitio_web[MAX_SITIO_WEB];
+    int cantidad_sectores;
+    struct Sector sectores[MAX_SECTORES];
+};
+
 //listas de elementos a utilizar
 
 struct Sitio sitios[MAX_SITIOS];
 int num_sitios = 0;
 
+/**
+ 
 struct Sitios sitios[MAX_SITIOS2];
     int cantidad_sitios = 0;
+
+
+
+*/
 
 
 //////////////////////////////////////////funcionalidades 1//////////////////////////////////////////////
@@ -186,6 +194,106 @@ void mostrar_sitios(struct Sitio *sitios, int cantidad_sitios) {
         printf("\n");
     }
 }
+
+
+//////////////////////////////funcionalidades 3/////////////////////////////////
+
+// Función para crear un nuevo evento
+
+/**
+
+void crear_evento(struct Evento* evento, struct Sitio* sitio) {
+    printf("Introduzca el nombre del evento: ");
+    scanf("%s", evento->nombre);
+    printf("Introduzca el nombre de la productora: ");
+    scanf("%s", evento->productora);
+    printf("Introduzca la fecha del evento: ");
+    scanf("%s", evento->fecha);
+    printf("Seleccione el sitio del evento:\n");
+    printf("Sitio\t\t\t\tSectores\n");
+    printf("------------------------------------------------\n");
+    for (int i = 0; i < sitio->num_sectores; i++) {
+        printf("%-30s\t%d\n", sitio->nombres_sectores[i], i+1);
+    }
+    printf("------------------------------------------------\n");
+    printf("Introduzca el nombre del sitio seleccionado: ");
+    scanf("%s", evento->sitio);
+    printf("Introduzca el número de sectores para el sitio seleccionado: ");
+    scanf("%d", &evento->num_sectores);
+    evento->precios_sectores = (float*)malloc(evento->num_sectores * sizeof(float));
+    for (int i = 0; i < evento->num_sectores; i++) {
+        printf("Introduzca el precio para el sector %d: ", i+1);
+        scanf("%f", &evento->precios_sectores[i]);
+    }
+}
+
+// Función para imprimir los detalles de un evento
+void imprimir_evento(struct Evento evento) {
+    printf("Nombre del evento: %s\n", evento.nombre);
+    printf("Productora: %s\n", evento.productora);
+    printf("Fecha del evento: %s\n", evento.fecha);
+    printf("Sitio seleccionado: %s\n", evento.sitio);
+    printf("Precios por sector:\n");
+    for (int i = 0; i < evento.num_sectores; i++) {
+        printf("%d: $%.2f\n", i+1, evento.precios_sectores[i]);
+    }
+}
+
+
+*/
+
+
+
+
+
+///////////Funcionalidades 4////////////////
+/**
+ * 
+ // Función para mostrar el estado de un sector
+void mostrar_sector(int sector, float precio, int asientos[], float recaudacion[]) {
+    printf("Sector %d\n", sector);
+    printf("Monto por asiento: %.2f\n", precio);
+    printf("Monto recaudado: %.2f\n", recaudacion[sector]);
+    printf("Estado de asientos:\n");
+    for (int i = 0; i < 10; i++) {
+        printf("Asiento %d: %s\n", i+1, asientos[i] ? "vendido" : "disponible");
+    }
+}
+
+int main() {
+    // Definición de un evento de ejemplo
+    struct Evento evento;
+    strcpy(evento.nombre, "Concierto de rock");
+    strcpy(evento.productora, "Rock Company");
+    strcpy(evento.sitio, "Estadio Nacional");
+    strcpy(evento.fecha, "15/04/2023");
+    evento.num_sectores = 2;
+    evento.precios[0] = 25.0;
+    evento.precios[1] = 20.0;
+    for (int i = 0; i < 10; i++) {
+        evento.asientos[i] = 0;
+        evento.recaudacion[0] = 0.0;
+        evento.recaudacion[1] = 0.0;
+    }
+
+    // Mostrar la información del evento
+    printf("Nombre del evento: %s\n", evento.nombre);
+    printf("Productora: %s\n", evento.productora);
+    printf("Sitio de evento: %s\n", evento.sitio);
+    printf("Fecha: %s\n", evento.fecha);
+
+    // Mostrar la información de los sectores
+    for (int i = 0; i < evento.num_sectores; i++) {
+        mostrar_sector(i, evento.precios[i], evento.asientos, evento.recaudacion);
+    }
+
+    return 0;
+}
+
+*/
+
+
+
 
 /////////////////funciones de menú operativo////////////////////////
 int agregarSitios(){
