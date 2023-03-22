@@ -29,6 +29,8 @@ struct Sitio {
     char nombre[MAX_NOMBRE];
     char ubicacion[MAX_UBICACION];
     char sitio_web[MAX_SITIO_WEB];
+    int cantidad_sectores;
+    struct Sector sectores[MAX_SECTORES];
 };
 
 struct Asiento {
@@ -40,12 +42,6 @@ struct Sector {
     int cantidad;
     char inicial;
     struct Asiento asientos[MAX_ASIENTOS];
-};
-
-struct Sitios {
-    char nombre[MAX_SITIOS2];
-    int cantidad_sectores;
-    struct Sector sectores[MAX_SECTORES];
 };
 
 //listas de elementos a utilizar
@@ -145,6 +141,51 @@ void imprimir_sitios() {
 
 //////////////////////////////funcionalidades 2/////////////////////////////////
 
+void agregar_sector(struct Sitio *sitio) {
+    if (sitio->cantidad_sectores >= MAX_SECTORES) {
+        printf("El sitio ha alcanzado la cantidad máxima de sectores.\n");
+        return;
+    }
+
+    struct Sector sector;
+    printf("Ingrese el nombre del sector: ");
+    scanf("%s", sector.nombre);
+    printf("Ingrese la cantidad de espacios: ");
+    scanf("%d", &sector.cantidad);
+    printf("Ingrese la inicial (carácter alfabético) de los asientos: ");
+    scanf(" %c", &sector.inicial);
+
+    for (int i = 0; i < sector.cantidad; i++) {
+        sprintf(sector.asientos[i].nombre, "%c%d", sector.inicial, i+1);
+    }
+
+    sitio->sectores[sitio->cantidad_sectores++] = sector;
+    printf("El sector ha sido agregado con éxito.\n");
+}
+
+void reset_espacios(struct Sitio *sitio) {
+    for (int i = 0; i < sitio->cantidad_sectores; i++) {
+        for (int j = 0; j < sitio->sectores[i].cantidad; j++) {
+            strcpy(sitio->sectores[i].asientos[j].nombre, "");
+        }
+    }
+    printf("Los espacios del sitio han sido reseteados con éxito.\n");
+}
+
+void mostrar_sitios(struct Sitio *sitios, int cantidad_sitios) {
+    for (int i = 0; i < cantidad_sitios; i++) {
+        printf("Sitio: %s\n", sitios[i].nombre);
+        for (int j = 0; j < sitios[i].cantidad_sectores; j++) {
+            printf("\tSector: %s - Cantidad de espacios: %d\n", sitios[i].sectores[j].nombre, sitios[i].sectores[j].cantidad);
+            printf("\t\tAsientos: ");
+            for (int k = 0; k < sitios[i].sectores[j].cantidad; k++) {
+                printf("%s ", sitios[i].sectores[j].asientos[k].nombre);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
 
 /////////////////funciones de menú operativo////////////////////////
 int agregarSitios(){
@@ -187,7 +228,8 @@ int gestionSitiosEventos(){
         printf("\n");
         printf("1. Agregar sitios de eventos\n");
         printf("2. Agregar sitios de eventos por lote\n");
-        printf("2. Volver\n");
+        printf("3. Volver\n");
+        printf("Seleccione una opción: ");
         scanf("%d",&opcion);
     
     //evaluando las opciones del usuario
@@ -199,7 +241,7 @@ int gestionSitiosEventos(){
         case 2:
             agregarSitiosLote();            
             break;
-        case 7:
+        case 3:
             printf("Volviendo\n");
             Sleep(1000);
             volver=true;
@@ -214,18 +256,17 @@ int gestionSitiosEventos(){
 };
           
 int gestionEspaciosSitiosEventos(){
-    printf("---------------------------------------------\n");
-    printf("*****Gestion de espacios sitio de eventos*****\n");
-
     bool volver=false;
     int opcion;
     while (volver!=true){
         printf("---------------------------------------------\n");
-        printf("********Gestion de Sitios de eventos*********\n");
-        printf("\n");
-        printf("1. Agregar sitios de eventos\n");
-        printf("2. Agregar sitios de eventos por lote\n");
-        printf("2. Volver\n");
+        printf("***Gestion de espacios sitio de eventos*****\n");
+        printf("\n");        
+        printf("1. Agregar sector a un sitio de eventos\n");
+        printf("2. Resetear Espacios\n");
+        printf("3. Mostrar Sitios\n");
+        printf("4. Volver\n");
+        printf("Seleccione una opción: ");
         scanf("%d",&opcion);
     
     //evaluando las opciones del usuario
@@ -237,7 +278,10 @@ int gestionEspaciosSitiosEventos(){
         case 2:
             agregarSitiosLote();            
             break;
-        case 7:
+        case 3:
+            agregarSitiosLote();            
+            break;
+        case 4:
             printf("Volviendo\n");
             Sleep(1000);
             volver=true;
